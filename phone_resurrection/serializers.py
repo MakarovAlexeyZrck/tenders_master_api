@@ -48,4 +48,4 @@ class PhonesReestrUpdate(serializers.ModelSerializer):
 
     class Meta:
         model  = PhonesReestr
-        fields = ["det_polar", "det_status", "det_verdict"]
+        fields = ["det_polar", "det_status", "det_verdict", "det_desc"]
