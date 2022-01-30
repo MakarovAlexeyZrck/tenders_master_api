@@ -14,3 +14,14 @@ class PhonesReestrReadFullTable(serializers.ModelSerializer):
         model = PhonesReestr
         fields = "__all__"
 
+
+class PhonesReestrUpdateAfterCheck(serializers.ModelSerializer):
+
+    """
+        Автор:      Макаров Алексей
+        Описание:   Форматирование данных при обновлении инф. после пров. в Я
+    """
+
+    class Meta:
+        model = PhonesReestr
+        fields = ["phone_state", "phone_descr"]
