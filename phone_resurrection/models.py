@@ -20,7 +20,8 @@ class PhonesReestr(models.Model):
     time_updated    = models.DateTimeField(auto_now = True)
     time_created    = models.DateTimeField(auto_now_add = True)
 
-    need_to_update = models.SmallIntegerField(default = 1)
+    need_to_update  = models.SmallIntegerField(default = 1)
+    need_to_improve = models.SmallIntegerField(default = 0)
 
     class Meta:
         db_table = "phones_reestr"
