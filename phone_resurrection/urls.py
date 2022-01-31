@@ -14,6 +14,16 @@ urlpatterns = [
 
     path(
         "resurrection/update_phone_info/<int:phone_id>",
-        PhonesReestView.as_view())
+        PhonesReestView.as_view()),
+
+    path(
+        "resurrection/create/",
+        PhonesReestView.as_view()
+    ),
+
+    path(
+        "resurrection/show/",
+        PhonesReestView.as_view()
+    ),
 
 ]

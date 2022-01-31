@@ -25,3 +25,15 @@ class PhonesReestrUpdateAfterCheck(serializers.ModelSerializer):
     class Meta:
         model = PhonesReestr
         fields = ["phone_state", "phone_descr"]
+
+
+class PhonesReestrCreate(serializers.ModelSerializer):
+
+    """
+        Автор:      Макаров Алексей
+        Описание:   Форматирование данных при создании телефона для проверок
+    """
+
+    class Meta:
+        model  = PhonesReestr
+        fields = ["phone_numbs"]
