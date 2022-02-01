@@ -53,7 +53,7 @@ class PhonesReestView(APIView):
             Описание:   Выборка всех данных из таблицы с реестром телефонов
         """
 
-        if request.headers["token"] == "E44D46E0BB9691CF448A9BB19391E8AB":
+        if request.headers.get("token") == "E44D46E0BB9691CF448A9BB19391E8AB":
 
             rows = PhonesReestr.objects.all()
             serializer = PhonesReestrReadFullTable(rows, many = True)
@@ -74,7 +74,7 @@ class PhonesReestView(APIView):
             Описание:   Выполнение запроса по добавлению данных в реестр
         """
 
-        if request.headers["token"] == "E44D46E0BB9691CF448A9BB19391E8AB":
+        if request.headers.get("token") == "E44D46E0BB9691CF448A9BB19391E8AB":
 
             serializer = PhonesReestrCreate(data = request.data)
 
