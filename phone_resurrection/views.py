@@ -78,6 +78,7 @@ class PhonesReestView(APIView):
         if request.headers.get("token") == "E44D46E0BB9691CF448A9BB19391E8AB":
 
             serializer = PhonesReestrCreate(data = request.data)
+            print(request.data)
             
             phone_numbers = request.data.get("phone_numbs")
 
