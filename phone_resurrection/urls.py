@@ -26,4 +26,9 @@ urlpatterns = [
         PhonesReestView.as_view()
     ),
 
+    path(
+        "resurrection/delete/<int:phone_id>",
+        PhonesReestView.as_view()
+    )
+
 ]

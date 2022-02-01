@@ -1,3 +1,4 @@
+import re
 from rest_framework import status
 from django.http import JsonResponse
 from rest_framework.response import Response
@@ -77,16 +78,28 @@ class PhonesReestView(APIView):
         if request.headers.get("token") == "E44D46E0BB9691CF448A9BB19391E8AB":
 
             serializer = PhonesReestrCreate(data = request.data)
+            
+            phone_numbers = request.data.get("phone_numbs")
 
-            if serializer.is_valid():
-                serializer.save()
-                return Response({"status": "ok"}, status = status.HTTP_200_OK)
+            if phone_numbers.isdecimal():
 
-            return Response(
-                {
-                    "status": "error", "reason": serializer.errors
-                },
-                status = status.HTTP_400_BAD_REQUEST)
+                if serializer.is_valid():
+                    serializer.save()
+                    return Response({
+                        "status": "ok"}, status = status.HTTP_200_OK)
+
+                return Response(
+                    {
+                        "status": "error", "reason": "Номер уже существует"
+                    },
+                    status = status.HTTP_400_BAD_REQUEST)
+            else:
+                return Response(
+                    {
+                        "status": "error", "reason": "Неверный формат данных"
+                    },
+                    status = status.HTTP_400_BAD_REQUEST
+                )
         
         else:
 
@@ -111,4 +124,25 @@ class PhonesReestView(APIView):
         return Response(
             {"status": "error", "reason": serializer.errors},
             status=status.HTTP_400_BAD_REQUEST,
+        )
+
+    def delete(self, request, phone_id: int) -> Response:
+
+        """
+            Автор:      Макаров Алексей
+            Описание:   Удаление номера телефона из реестра
+        """
+
+        if request.headers.get("token") == "E44D46E0BB9691CF448A9BB19391E8AB":
+            row = PhonesReestr.objects.filter(id = phone_id)
+            if len(row) == 0:
+                return Response(
+                    {"status": "error"}, status = status.HTTP_204_NO_CONTENT)
+            else:
+                row.delete()
+                return Response(
+                    {"status": "ok"}, status = status.HTTP_200_OK)
+
+        return Response(
+            {"status": "error"}, status = status.HTTP_400_BAD_REQUEST,
         )
