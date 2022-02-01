@@ -53,11 +53,19 @@ class PhonesReestView(APIView):
             Описание:   Выборка всех данных из таблицы с реестром телефонов
         """
 
-        rows = PhonesReestr.objects.all()
-        serializer = PhonesReestrReadFullTable(rows, many = True)
+        if request.headers["token"] == "E44D46E0BB9691CF448A9BB19391E8AB":
 
-        return Response(
-            {"fetched": serializer.data}, status = status.HTTP_200_OK)
+            rows = PhonesReestr.objects.all()
+            serializer = PhonesReestrReadFullTable(rows, many = True)
+
+            return Response(
+                {"fetched": serializer.data}, status = status.HTTP_200_OK)
+        
+        else:
+
+            return Response(
+                {"status": "error"}, status = status.HTTP_401_UNAUTHORIZED
+            )
 
     def post(self, request) -> Response:
 
@@ -66,17 +74,25 @@ class PhonesReestView(APIView):
             Описание:   Выполнение запроса по добавлению данных в реестр
         """
 
-        serializer = PhonesReestrCreate(data = request.data)
+        if request.headers["token"] == "E44D46E0BB9691CF448A9BB19391E8AB":
 
-        if serializer.is_valid():
-            serializer.save()
-            return Response({"status": "ok"}, status = status.HTTP_200_OK)
+            serializer = PhonesReestrCreate(data = request.data)
 
-        return Response(
-            {
-                "status": "error", "reason": serializer.errors
-            },
-            status = status.HTTP_400_BAD_REQUEST)
+            if serializer.is_valid():
+                serializer.save()
+                return Response({"status": "ok"}, status = status.HTTP_200_OK)
+
+            return Response(
+                {
+                    "status": "error", "reason": serializer.errors
+                },
+                status = status.HTTP_400_BAD_REQUEST)
+        
+        else:
+
+            return Response(
+                {"status": "error"}, status = status.HTTP_401_UNAUTHORIZED
+            )
 
     def patch(self, request, phone_id: int) -> Response:
 
