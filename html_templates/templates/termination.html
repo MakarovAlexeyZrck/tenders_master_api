@@ -12,6 +12,24 @@
                     <td style="padding-bottom: 40px; border-top: 0; height: 100% !important; width: 70% !important;" valign="center" align="left">
                         <h3>Получено оповещение от единой информациионной системы</h3>
                     </td>
+                    <td style="padding-bottom: 40px; border-top: 0; height: 100% !important; width: 70% !important;" valign="center" align="right">
+                        {% if supplier_name|length > 5 %}
+                            <p style="color: #8f8f8f; font-size: 10px; padding-bottom: 10px; line-height: 1.4;">
+                                <strong>
+                                    Наименование компании:
+                                </strong>
+                                <br>
+                                {{ supplier_name }}
+                            </p>
+                        {% endif %}
+                        <p style="color: #8f8f8f; font-size: 10px; padding-bottom: 10px; line-height: 1.4;">
+                            <strong>
+                                Электронная почта адресанта:
+                            </strong>
+                            <br>
+                            {{ supplier_email }}
+                        </p>
+                    </td>
                 </tr>
                 <tr>
                     <td colspan="2" style="padding-top: 10px; border-top: 1px solid #e4e2e2;">
@@ -19,7 +37,13 @@
                             Почему Вы получили данное письмо?
                         </h3>
                         <p style="color: #8f8f8f; font-size: 14px; padding-bottom: 20px; line-height: 1.4;">
-                            &nbsp;Здравствуйте, заказчик {{ customer_name }} разместил в
+                            &nbsp;Здравствуйте, заказчик 
+                            
+                            {% if customer_name|length > 5 %}
+                                {{ customer_name }}
+                            {% endif %}
+                            
+                            разместил в
                             <a href="https://zakupki.gov.ru/epz/order/notice/ea44/view/documents.html?regNumber={{ purchase_number }}" target="_blank">
                                 ЕИС
                             </a>

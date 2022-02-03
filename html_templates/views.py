@@ -33,6 +33,8 @@ class RejectionTemplate(APIView):
         """
 
         context  = {
+            "supplier_name":         request.POST["supplier_name"],
+            "supplier_email":        request.POST["supplier_email"],
             "customer_name":         request.POST["customer_name"],
             "purchase_number":       request.POST["purchase_number"],
             "contact_manager_name":  request.POST["contact_manager_name"],
@@ -68,6 +70,8 @@ class TerminationTemplate(APIView):
         """
 
         context  = {
+            "supplier_name":         request.POST["supplier_name"],
+            "supplier_email":        request.POST["supplier_email"],
             "customer_name":         request.POST["customer_name"],
             "purchase_number":       request.POST["purchase_number"],
             "contact_manager_name":  request.POST["contact_manager_name"],
