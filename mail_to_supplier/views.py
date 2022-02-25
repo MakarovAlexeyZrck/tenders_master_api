@@ -1,47 +1,81 @@
 import json
 
+from django.template import loader
+from rest_framework import status
 from django.shortcuts import render
+from django.http      import HttpResponse
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
 
-from mail_to_supplier.SmtpManager import SmtpManager
 
-
-class MailToSupplier(APIView):
+class NotificationSupplierRejection(APIView):
 
     """
         Автор:      Макаров Алексей
-        Описание:   Интерфейс для отправки электронного письма
-                    на адрес электронной почты поставщика
+        Описание:   Генерирование шаблона с уведомлением
+                    поставщика об уклонении / отказе от выполнения контракта
     """
 
     def __init__(self) -> None:
 
         """
             Автор:      Макаров Алексей
-            Описание:   Инициализация класса по отправке эл. письма клиенту
+            Описание:   Инициализация класса по созданию письма - уведомления
         """
 
-        self.mail_server = SmtpManager()
-
-        self.recipients_list = ["mak_alexey@icloud.com"]
-        # self.recipients_list = ["akulov@trade.su"]
+        self.template = loader.get_template("rejection.html")
 
     def post(self, request) -> Response:
 
         """
-
             Автор:      Макаров Алексей
-            Описание:   Отправляет сообщение на электронную почту клиента
-
+            Описание:   Получение шаблона письма с уведомлением поставщика
         """
 
-        self.recipients_list += json.loads(request.POST["recipients"])
+        context = {
+            "supplier_name": request.POST["supplier_name"],
+            "customer_name": request.POST["customer_name"],
+            "purchase_number": request.POST["purchase_number"],
+            "contact_manager_name": request.POST["contact_manager_name"],
+            "contact_manager_email": request.POST["contact_manager_email"],
+            "contact_manager_phone": request.POST["contact_manager_phone"],
+        }
 
-        for recipient in self.recipients_list:
-            # send mail
-            pass
+        return HttpResponse(self.template.render(context, request))
 
 
-        return Response({"status": 1})
+class NotificationSupplierTermination(APIView):
+
+    """
+        Автор:      Макаров Алексей
+        Описание:   Генерирование шаблона с уведомлением
+                    поставщика об одностороннем расторжении контракта
+    """
+
+    def __init__(self) -> None:
+
+        """
+            Автор:      Макаров Алексей
+            Описание:   Инициализация класса по созданию письма - уведомления
+        """
+
+        self.template = loader.get_template("termination.html")
+
+    def post(self, request) -> Response:
+
+        """
+            Автор:      Макаров Алексей
+            Описание:   Получение шаблона письма с уведомлением поставщика
+        """
+
+        context = {
+            "supplier_name": request.POST["supplier_name"],
+            "customer_name": request.POST["customer_name"],
+            "purchase_number": request.POST["purchase_number"],
+            "contact_manager_name": request.POST["contact_manager_name"],
+            "contact_manager_email": request.POST["contact_manager_email"],
+            "contact_manager_phone": request.POST["contact_manager_phone"],
+        }
+
+        return HttpResponse(self.template.render(context, request))
