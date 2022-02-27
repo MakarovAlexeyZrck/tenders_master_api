@@ -58,6 +58,7 @@ class SendNotificationTemplate(APIView):
 
         self.smtp_server = SmtpManager()
         self.recipient_copies = ["mak_alexey@icloud.com"]
+        print("here")
     
     def post(self, request) -> HttpResponse:
 
