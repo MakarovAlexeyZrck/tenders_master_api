@@ -69,7 +69,7 @@ class SendNotificationTemplate(APIView):
 
         manager_email = SuppliersEmailNotification.objects.filter(
             id = request.POST["notification_id"])
-        serializer = NotificationManagerRecipient(email_template, many = True)
+        serializer = NotificationManagerRecipient(manager_email, many = True)
 
         print(serializer.data)
 
