@@ -72,7 +72,6 @@ class SendNotificationTemplate(APIView):
         serializer = NotificationManagerRecipient(manager_email, many = True)
 
         self.recipient_copies += [serializer.data[0]["manager_email"]]
-        print(self.recipient_copies)
 
         recipients = [
             i["recipient"] for i in json.loads(
@@ -86,6 +85,9 @@ class SendNotificationTemplate(APIView):
         for i in recipients:
             self.smtp_server.send_email(
                 "Уведомление от ЕИС", serializer.data[0]["email_template"], i)
+            for i1 in self.recipient_copies:
+                self.smtp_server.send_email(
+                    "Уведомление от ЕИС", serializer.data[0]["email_template"], i1)
 
         return Response(
             {
