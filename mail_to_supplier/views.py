@@ -63,7 +63,11 @@ class SendNotificationTemplate(APIView):
             self.recipient_copies = ["mak_alexey@icloud.com"]
             print("here")
         except Exception as e:
-            print(e)
+            return Response(
+            {
+                "data": e
+            }
+        )
     
     def post(self, request) -> HttpResponse:
 
