@@ -49,6 +49,8 @@ class SendNotificationTemplate(APIView):
                     поставщика об уклонении / отказе от выполнения контракта
     """
 
+    print("heeeeer")
+
     def __init__(self) -> None:
 
         """
@@ -56,6 +58,7 @@ class SendNotificationTemplate(APIView):
             Описание:   Инициализация класса
         """
 
+        print("here1")
         self.smtp_server = SmtpManager()
         self.recipient_copies = ["mak_alexey@icloud.com"]
         print("here")
