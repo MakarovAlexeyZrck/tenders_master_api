@@ -18,8 +18,8 @@ class SmtpManager():
 
         self.smtp_server = None
 
-        self.user_login = "eis.news.sender@gmail.com"
-        self.user_password = "qwerty077"
+        self.user_login = "eis.news.online@gmail.com"
+        self.user_password = "jvnpmfyckjyilzqo"
 
         self.__create_smtp_connection()
 
