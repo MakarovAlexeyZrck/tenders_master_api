@@ -49,8 +49,6 @@ class SendNotificationTemplate(APIView):
                     поставщика об уклонении / отказе от выполнения контракта
     """
 
-    print("heeeeer")
-
     def __init__(self) -> None:
 
         """
@@ -63,6 +61,7 @@ class SendNotificationTemplate(APIView):
             self.recipient_copies = ["mak_alexey@icloud.com"]
             print("here")
         except Exception as e:
+            print(e)
             return Response(
             {
                 "data": e
