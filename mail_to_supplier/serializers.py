@@ -25,3 +25,14 @@ class NotificationSaveRecipients(serializers.ModelSerializer):
     class Meta:
         model  = SuppliersEmailNotification
         fields = ["email_recipients"]
+
+class NotificationManagerRecipient(serializers.ModelSerializer):
+
+    """
+        Автор:      Макаров Алексей
+        Описание:   Сохранение реципиентов уведомления клиентов
+    """
+
+    class Meta:
+        model  = SuppliersEmailNotification
+        fields = ["manager_email"]

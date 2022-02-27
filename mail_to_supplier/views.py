@@ -11,6 +11,7 @@ from rest_framework.response import Response
 from mail_to_supplier.models import SuppliersEmailNotification
 from mail_to_supplier.serializers import SuppliersEmailNotificationRead
 from mail_to_supplier.serializers import NotificationSaveRecipients
+from mail_to_supplier.serializers import NotificationManagerRecipient
 
 from mail_to_supplier.SmtpManager import SmtpManager
 
@@ -56,24 +57,21 @@ class SendNotificationTemplate(APIView):
             Описание:   Инициализация класса
         """
 
-        try:
-            self.smtp_server = SmtpManager()
-            self.recipient_copies = ["mak_alexey@icloud.com"]
-            print("here")
-        except Exception as e:
-            print(e)
-            return Response(
-            {
-                "data": e
-            }
-        )
-    
+        self.smtp_server = SmtpManager()
+        self.recipient_copies = ["mak_alexey@icloud.com"]
+
     def post(self, request) -> HttpResponse:
 
         """
             Автор:      Макаров Алексей
             Описание:   Выполнение рассылки клиентам
         """
+
+        manager_email = SuppliersEmailNotification.objects.filter(
+            id = request.POST["notification_id"])
+        serializer = NotificationManagerRecipient(email_template, many = True)
+
+        print(serializer.data)
 
         recipients = [
             i["recipient"] for i in json.loads(request.POST["recipients_emails"])
