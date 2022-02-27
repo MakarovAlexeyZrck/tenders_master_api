@@ -58,10 +58,12 @@ class SendNotificationTemplate(APIView):
             Описание:   Инициализация класса
         """
 
-        print("here1")
-        self.smtp_server = SmtpManager()
-        self.recipient_copies = ["mak_alexey@icloud.com"]
-        print("here")
+        try:
+            self.smtp_server = SmtpManager()
+            self.recipient_copies = ["mak_alexey@icloud.com"]
+            print("here")
+        except Exception as e:
+            print(e)
     
     def post(self, request) -> HttpResponse:
 
