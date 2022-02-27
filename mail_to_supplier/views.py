@@ -77,12 +77,12 @@ class NotificationSupplierTermination(APIView):
          """
 
          context = {
-             "supplier_name": request.POST["supplier_name"],
-             "customer_name": request.POST["customer_name"],
-             "purchase_number": request.POST["purchase_number"],
-             "contact_manager_name": request.POST["contact_manager_name"],
-             "contact_manager_email": request.POST["contact_manager_email"],
-             "contact_manager_phone": request.POST["contact_manager_phone"],
+            "supplier_name": request.POST["supplier_name"],
+            "customer_name": request.POST["customer_name"],
+            "purchase_number": request.POST["purchase_number"],
+            "contact_manager_name": request.POST["contact_manager_name"],
+            "contact_manager_email": request.POST["contact_manager_email"],
+            "contact_manager_phone": request.POST["contact_manager_phone"],
          }
 
          return HttpResponse(self.template.render(context, request))

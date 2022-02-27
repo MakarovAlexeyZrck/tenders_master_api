@@ -11,12 +11,12 @@ urlpatterns = [
     path("supplier/send/", SendNotificationTemplate.as_view()),
 
     path(
-        "supplier/notification/rejection/",
+        "supplier/rejection/",
         NotificationSupplierRejection.as_view()
     ),
 
     path(
-        "supplier/notification/termination/",
+        "supplier/termination/",
         NotificationSupplierTermination.as_view()
     )
 
