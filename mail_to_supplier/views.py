@@ -87,6 +87,7 @@ class NotificationSupplierTermination(APIView):
 
          return HttpResponse(self.template.render(context, request))
 
+
 class NotificationTemplate(APIView):
 
     """
@@ -101,6 +102,8 @@ class NotificationTemplate(APIView):
             Автор:      Макаров Алексей
             Описание:   Получение шаблона уведомления поставщика
         """
+
+        print(id)
 
         email_template = SuppliersEmailNotification.objects.filter(id = id)
         serializer = SuppliersEmailNotificationRead(email_template, many=True)
